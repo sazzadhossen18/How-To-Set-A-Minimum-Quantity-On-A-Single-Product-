@@ -1,0 +1,33 @@
+{% if collection.handle == 'collection-handle' %}
+  <script>
+    var minQuantity = 3; // set the minimum quantity
+    var addToCartBtn = document.querySelector('#AddToCart');
+    addToCartBtn.addEventListener('click', function() {
+      var quantityInput = document.querySelector('#quantity');
+      var quantity = parseInt(quantityInput.value);
+      if (quantity < minQuantity) {
+        alert('The minimum quantity is ' + minQuantity);
+        return false;
+      }
+    });
+  </script>
+{% endif %}
+
+
+
+{% if product.tags contains 'tag-name' %}
+  <label for="quantity">Quantity</label>
+  <input type="number" id="quantity" name="quantity" value="1" min="3" required>
+{% else %}
+  <label for="quantity">Quantity</label>
+  <input type="number" id="quantity" name="quantity" value="1" required>
+{% endif %}
+
+
+{% for item in cart.items %}
+  {% if item.product.tags contains 'tag-name' %}
+    <input type="number" id="updates_{{ item.id }}" name="updates[]" value="{{ item.quantity }}" min="3" required>
+  {% else %}
+    <input type="number" id="updates_{{ item.id }}" name="updates[]" value="{{ item.quantity }}" required>
+  {% endif %}
+{% endfor %}
